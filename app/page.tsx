@@ -1,13 +1,10 @@
-import { AuthButton } from "@/components/auth-button"
-
 export default function Home() {
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1>Welcome to Next.js</h1>
-      <AuthButton />
-      <p style={{ marginTop: "1rem" }}>
-        Get started by editing <code>app/page.tsx</code>
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-4xl font-bold mb-4">Welcome to Next.js</h1>
+      <p className="text-muted-foreground">
+        Get started by editing <code className="bg-muted px-1 py-0.5 rounded">app/page.tsx</code>
       </p>
-    </main>
+    </div>
   )
 }

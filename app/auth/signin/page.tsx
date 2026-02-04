@@ -2,9 +2,8 @@ import { AuthForm } from "@/components/auth-form"
 
 export default function SignInPage() {
   return (
-    <main style={{ padding: "2rem" }}>
-      <h1>Welcome</h1>
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center p-4">
       <AuthForm />
-    </main>
+    </div>
   )
 }
