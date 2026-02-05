@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useSession, signOut, signIn } from "next-auth/react"
 import { Button } from "@/components/ui/button"
+import { siteConfig } from "@/lib/config"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,7 +20,7 @@ export function Navbar() {
     <nav className="border-b bg-background">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
         <Link href="/" className="flex items-center gap-2">
-          <span className="text-xl font-bold">MyApp</span>
+          <span className="text-xl font-bold">{siteConfig.name}</span>
         </Link>
 
         <div className="flex items-center gap-4">

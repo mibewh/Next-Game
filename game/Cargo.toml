@@ -1,0 +1,46 @@
+[package]
+name = "game"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+bevy = { version = "0.15", default-features = false, features = [
+    "bevy_asset",
+    "bevy_winit",
+    "bevy_core_pipeline",
+    "bevy_render",
+    "bevy_sprite",
+    "bevy_text",
+    "bevy_ui",
+    "multi_threaded",
+    "webgl2",
+    "default_font",
+] }
+wasm-bindgen = "0.2"
+web-sys = { version = "0.3", features = ["console"] }
+console_error_panic_hook = "0.1"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+getrandom = { version = "0.3", features = ["wasm_js"] }
+
+# Fast dev builds (use: wasm-pack build --dev)
+[profile.dev]
+opt-level = 1
+
+# Fast debug builds for wasm-pack
+[profile.dev.package."*"]
+opt-level = 1
+
+# Optimized release builds (slower to compile)
+[profile.release]
+opt-level = "z"
+lto = true
+
+# Faster release builds for iteration (use: wasm-pack build --profiling)
+[profile.release-fast]
+inherits = "release"
+opt-level = 2
+lto = false

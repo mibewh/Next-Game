@@ -31,3 +31,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Rust/Bevy
+/game/target/
+/public/game/*.js
+/public/game/*.wasm
+/public/game/*.ts
