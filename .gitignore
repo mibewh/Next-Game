@@ -37,3 +37,6 @@ next-env.d.ts
 /public/game/*.js
 /public/game/*.wasm
 /public/game/*.ts
+
+# AI
+/.claude
