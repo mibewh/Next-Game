@@ -16,27 +16,27 @@ export async function createUser(
   email: string,
   password: string
 ): Promise<User> {
-  const db = await getDb()
+  const db = getDb()
   const passwordHash = await bcrypt.hash(password, SALT_ROUNDS)
 
-  const result = await db.run(
-    "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)",
-    [username, email.toLowerCase(), passwordHash]
+  const stmt = db.prepare(
+    "INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)"
   )
+  const result = stmt.run(username, email.toLowerCase(), passwordHash)
 
-  const user = await db.get<User>("SELECT * FROM users WHERE id = ?", [
-    result.lastID,
-  ])
+  const user = db
+    .prepare("SELECT * FROM users WHERE id = ?")
+    .get(result.lastInsertRowid) as User | undefined
 
   if (!user) throw new Error("Failed to create user")
   return user
 }
 
 export async function getUserByEmail(email: string): Promise<User | undefined> {
-  const db = await getDb()
-  return db.get<User>("SELECT * FROM users WHERE email = ?", [
-    email.toLowerCase(),
-  ])
+  const db = getDb()
+  return db
+    .prepare("SELECT * FROM users WHERE email = ?")
+    .get(email.toLowerCase()) as User | undefined
 }
 
 export async function verifyPassword(

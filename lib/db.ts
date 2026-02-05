@@ -1,20 +1,15 @@
-import sqlite3 from "sqlite3"
-import { open, Database } from "sqlite"
+import Database from "better-sqlite3"
 import path from "path"
 
-let db: Database | null = null
+let db: Database.Database | null = null
 
-export async function getDb(): Promise<Database> {
+export function getDb(): Database.Database {
   if (db) return db
 
   const dbPath = path.join(process.cwd(), "data", "users.db")
+  db = new Database(dbPath)
 
-  db = await open({
-    filename: dbPath,
-    driver: sqlite3.Database,
-  })
-
-  await db.exec(`
+  db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE NOT NULL,
